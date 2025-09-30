@@ -1,120 +1,279 @@
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/swellstores/verswell-commerce&project-name=commerce&repo-name=commerce&demo-title=Next.js%20Swell%20Commerce&demo-url=https://verswell-commerce.vercel.app/&demo-image=https%3A%2F%2Fbigcommerce-demo-asset-ksvtgfvnd.vercel.app%2Fbigcommerce.png&env=SWELL_STORE_ID,SWELL_PUBLIC_KEY,SWELL_REVALIDATION_SECRET,SITE_NAME,TWITTER_CREATOR,TWITTER_SITE)
+# 🏥 Bahola Commerce - Homeopathic E-commerce Platform
 
-# Next.js Swell Commerce
+[![Next.js](https://img.shields.io/badge/Next.js-14.0.3-black)](https://nextjs.org/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.3.2-blue)](https://www.typescriptlang.org/)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-3.3.6-38B2AC)](https://tailwindcss.com/)
+[![Swell](https://img.shields.io/badge/Swell-Integration-purple)](https://swell.is/)
 
-A Next.js 14 and App Router-ready ecommerce template featuring:
+A modern, full-featured e-commerce platform built for Bahola Labs, specializing in homeopathic remedies and natural health solutions. Built with Next.js 14, TypeScript, and integrated with Swell for seamless e-commerce functionality.
 
-- Next.js App Router
-- Optimized for SEO using Next.js's Metadata
-- React Server Components (RSCs) and Suspense
-- Server Actions for mutations
-- Edge Runtime
-- New fetching and caching paradigms
-- Dynamic OG images
-- Styling with Tailwind CSS
-- Checkout and payments with Swell
-- Automatic light/dark mode based on system settings
+## 🌟 Features
 
-Next.js Commerce utilizes the Swell Frontend API to provide client-safe access to your store's data. The Frontend API has read-only permissions for most models including products, categories, navigation menus, pages, and more. With the addition of a session token, cart management, checkout, and account editing flows scoped to each customer are also available.
+### 🛒 **Core E-commerce**
+- **Product Catalog** - Browse homeopathic remedies, dilutions, and natural health products
+- **Advanced Search** - Search by product name, condition, or category
+- **Category Navigation** - Organized by Mother Tinctures, Dilutions, Biochemics, and more
+- **Product Variants** - Support for different potencies and dilutions
+- **Shopping Cart** - Full cart functionality with quantity management
+- **Responsive Design** - Mobile-first approach with beautiful UI
 
-> Note: Looking for Next.js Commerce v1? View the [code](https://github.com/vercel/commerce/tree/v1), [demo](https://commerce-v1.vercel.store), and [release notes](https://github.com/vercel/commerce/releases/tag/v1)
+### 💳 **Payment Integration**
+- **Dual Payment Gateways** - Razorpay & PayU integration
+- **Cash on Delivery** - COD option for Indian customers
+- **Secure Processing** - PCI-compliant payment handling
+- **Webhook Support** - Real-time payment status updates
+- **Multi-currency** - Support for INR and other currencies
 
-## Project setup
+### 🏠 **Specialized Features**
+- **Dilutions Layout** - Custom product pages for homeopathic dilutions
+- **Consultation Booking** - Online and in-person consultation scheduling
+- **Health Conditions** - Browse remedies by health concerns
+- **Doctor Resources** - Specialized section for healthcare professionals
+- **Bach Flower Remedies** - Dedicated section for Bach flower products
 
-To connect Next.js Commerce to a Swell store, you will need to set the environment variables [defined in `.env.example`](.env.example). Using [Vercel Environment Variables](https://vercel.com/docs/concepts/projects/environment-variables) for this is recommended, but a `.env` file is all that is necessary.
+### 🔧 **Technical Features**
+- **Next.js 14** - Latest App Router with Server Components
+- **TypeScript** - Full type safety throughout the application
+- **GraphQL Integration** - Efficient data fetching with Swell
+- **Performance Optimized** - Lazy loading, image optimization, caching
+- **SEO Ready** - Meta tags, structured data, sitemaps
+- **Error Handling** - Comprehensive error boundaries and fallbacks
 
-> Note: If using an `.env` file, you should not commit this to your repository as it may expose secrets that allow others to access your store.
+## 🚀 Quick Start
 
-_To use Vercel Environment Variables:_
+### Prerequisites
+- Node.js 18+ 
+- npm or pnpm
+- Swell store account
 
-1. Install Vercel CLI: `npm i -g vercel`
-2. Link a Vercel project: `vercel link` (this creates a `.vercel` directory)
-3. Download your environment variables: `vercel env pull`
+### Installation
 
-<details>
-  <summary>Expand if you work at Vercel and want to run locally and/or contribute</summary>
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/skandatechco/bahola-commerce.git
+   cd bahola-commerce
+   ```
 
-1. Run `vc link`.
-2. Select the `Vercel Solutions` scope.
-3. Connect to the existing `commerce-swell` project.
-4. Run `vc env pull` to get environment variables.
-5. Run `pnpm dev` to ensure everything is working correctly.
-</details>
+2. **Install dependencies**
+   ```bash
+   npm install
+   # or
+   pnpm install
+   ```
 
-### Connecting to your Swell store
+3. **Set up environment variables**
+   ```bash
+   cp .env.example .env.local
+   ```
+   
+   Fill in your environment variables:
+   ```env
+   # Swell Configuration
+   SWELL_STORE_ID=your_store_id
+   SWELL_PUBLIC_KEY=your_public_key
+   SWELL_REVALIDATION_SECRET=your_secret
+   
+   # Razorpay Configuration
+   RAZORPAY_KEY_ID=your_key_id
+   RAZORPAY_KEY_SECRET=your_key_secret
+   RAZORPAY_WEBHOOK_SECRET=your_webhook_secret
+   
+   # PayU Configuration
+   PAYU_MERCHANT_ID=your_merchant_id
+   PAYU_MERCHANT_KEY=your_merchant_key
+   PAYU_MERCHANT_SALT=your_merchant_salt
+   PAYU_AUTH_HEADER=your_auth_header
+   PAYU_BASE_URL=https://test.payu.in
+   
+   # Application Configuration
+   NEXT_PUBLIC_BASE_URL=http://localhost:3000
+   ```
 
-1. Create a `SWELL_STORE_ID` environment variable and use your Swell store ID as the the value. When logged in to the Swell admin dashboard, the current store's ID is visible in the URL as the subdomain: `https://SWELL_STORE_ID.swell.store/admin/settings/api`
+4. **Generate GraphQL types**
+   ```bash
+   npm run codegen
+   ```
 
-2. In order to use the Frontend API, you need to obtain a public key for your Swell Store. In the admin dashboard, go to _Developer > API keys_ to create a new key. Once created, set this as the value of `SWELL_PUBLIC_KEY` in your environment variables.
+5. **Run the development server**
+   ```bash
+   npm run dev
+   ```
 
-<details>
-  <summary>Expand to view detailed walkthrough</summary>
+6. **Open your browser**
+   Navigate to [http://localhost:3000](http://localhost:3000)
 
-1. Navigate to `https://SWELL_STORE_ID.swell.store/admin/settings/api`.
-2. Click the `Add public key` button.
-   ![Swell add public key](https://github.com/swellstores/verswell-commerce/assets/9212793/aaf595b5-bb94-490c-8d85-8edfc68f9d69)
-3. Add a decription to your public key and press the `Create Key` button
-   ![swell-internal-next-marketplace swell store_admin_settings_api (1)](https://github.com/swellstores/verswell-commerce/assets/9212793/4b825477-c8e3-410e-abab-f4650b70b5cb)
-4. Copy the public key and assign it to the `SWELL_PUBLIC_KEY` environment variable
-</details>
+## 📁 Project Structure
 
-### Running locally
-
-> Note: Ensure you are using Node v16 or above before running the install command.
-
-```bash
-pnpm install
-pnpm dev
+```
+bahola-commerce/
+├── app/                          # Next.js App Router
+│   ├── api/                      # API routes
+│   │   ├── payment/             # Payment processing
+│   │   ├── webhooks/            # Payment webhooks
+│   │   └── checkout/            # Checkout flow
+│   ├── category/                # Category pages
+│   ├── product/                 # Product pages
+│   ├── search/                  # Search functionality
+│   └── payment/                 # Payment success/failure pages
+├── components/                   # React components
+│   ├── cart/                    # Shopping cart components
+│   ├── header/                  # Navigation and header
+│   ├── product/                 # Product-specific components
+│   ├── payment/                 # Payment gateway components
+│   └── heavy/                   # Lazy-loaded components
+├── lib/                         # Utility libraries
+│   ├── swell/                   # Swell integration
+│   ├── payment/                 # Payment processing
+│   └── utils.ts                 # Helper functions
+└── public/                      # Static assets
 ```
 
-Your app should now be running on [localhost:3000](http://localhost:3000/).
+## 🛠️ Development
 
-## Production deployment
+### Available Scripts
 
-### Configure on-demand incremental static regeneration (ISR)
+```bash
+npm run dev          # Start development server
+npm run build        # Build for production
+npm run start        # Start production server
+npm run lint         # Run ESLint
+npm run test         # Run tests
+npm run codegen      # Generate GraphQL types
+```
 
-Using [on-demand revalidation](https://nextjs.org/docs/app/building-your-application/data-fetching/revalidating#using-on-demand-revalidation) in Next.js is recommended to optimize data fetching and serve requests from cache unless data is changed.
+### Debug Pages
 
-We can do this with Swell's [webhooks](https://developers.swell.is/backend-api/webhooks/the-webhook-model) triggered by certain [model events](https://developers.swell.is/backend-api/events/event-types), which can notify your Next.js app when data it depends on has changed.
+The project includes several debug pages for development:
 
-The following webhook events are pre-configured in `/app/api/revalidate/route.ts` and automatically revalidate the Next.js cache.
+- `/debug-products` - View all products in a category
+- `/debug-variant-prices` - Debug product variant pricing
+- `/debug-product` - Individual product debugging
 
-- `product.created`
-- `product.deleted`
-- `product.updated`
-- `category.created`
-- `category.deleted`
-- `category.updated`
+## 💳 Payment Integration
 
-The above product events are triggered when variants are added, updated, and removed, as well as when stock is updated.
+This project includes comprehensive payment integration with:
 
-> Note: If you add functionality that uses data from other models, you will need to configure the relevant events to listen for in `/app/api/revalidate/route.ts`.
+### Supported Payment Methods
+- **Razorpay** - Credit/Debit cards, UPI, Net Banking, Wallets
+- **PayU** - Credit/Debit cards, UPI, Wallets, EMI
+- **Cash on Delivery** - Pay when order arrives
 
-#### Set up secret for securing webhook requests
+### Payment Flow
+1. User selects payment method
+2. Payment order is created
+3. User completes payment
+4. Payment is verified via webhook
+5. Order status is updated
+6. Confirmation email is sent
 
-1. Create your own secret or [generate a random UUID](https://www.uuidgenerator.net/guid).
-2. Create an environment variable named `SWELL_REVALIDATION_SECRET` and use the value from step 1.
+For detailed payment integration documentation, see [PAYMENT_INTEGRATION.md](./PAYMENT_INTEGRATION.md).
 
-#### Configure webhooks in Swell
+## 🏗️ Architecture
 
-1. Navigate to `https://SWELL_STORE_ID.swell.store/admin/settings/webhooks`.
-2. Add a new webhook pointing to `https://DEPLOYMENT_URL/api/revalidate?secret=SECRET`, where `DEPLOYMENT_URL` is the domain where your app is deployed, and `[SECRET]` is the secret you just created.
-3. Select the six product and category events listed above. You can add more sets for other preview urls, environments, or local development.
+### Frontend
+- **Next.js 14** with App Router
+- **React Server Components** for optimal performance
+- **TypeScript** for type safety
+- **Tailwind CSS** for styling
+- **Headless UI** for accessible components
 
-<details>
-  <summary>Expand to view detailed walkthrough</summary>
-   ![Swell store webhooks](https://github.com/swellstores/verswell-commerce/assets/9212793/dca90e1c-1802-4d96-925e-582b427e2d5d)
-   ![Swell store add webhook](https://github.com/swellstores/verswell-commerce/assets/9212793/25178bf9-ad68-447e-9f3f-eb613005653e)
-   ![swell-internal-next-marketplace swell store_admin_settings_api (7)](https://github.com/swellstores/verswell-commerce/assets/9212793/a8565675-3cff-4b61-9881-f243ec5e5746)
+### Backend
+- **Swell** for e-commerce backend
+- **GraphQL** for efficient data fetching
+- **Server Actions** for mutations
+- **Edge Runtime** for optimal performance
 
-#### Testing webhooks during local development
+### Payment Processing
+- **Razorpay SDK** for payment processing
+- **PayU Integration** for alternative payments
+- **Webhook handling** for payment verification
+- **Secure token management**
 
-The easiest way to test webhooks while developing locally is to use [ngrok](https://ngrok.com).
+## 🚀 Deployment
 
-1. [Install and configure ngrok](https://ngrok.com/download) (you will need to create an account).
-1. Run your app locally, `npm run dev`.
-1. In a separate terminal session, run `ngrok http 3000`.
-1. Use the url generated by ngrok and add or update your webhook urls in Swell.
-1. You can now make changes to your store and your local app should receive updates. You can also use the `Send test notification` button to trigger a generic webhook test.
+### Vercel (Recommended)
+1. Connect your GitHub repository to Vercel
+2. Set environment variables in Vercel dashboard
+3. Deploy automatically on push to main branch
 
-</details>
+### Netlify
+1. Connect repository to Netlify
+2. Set build command: `npm run build`
+3. Set publish directory: `.next`
+4. Configure environment variables
+
+### Docker
+```bash
+docker build -t bahola-commerce .
+docker run -p 3000:3000 bahola-commerce
+```
+
+## 🔧 Configuration
+
+### Swell Setup
+1. Create a Swell store
+2. Get your Store ID and Public Key
+3. Set up webhooks for real-time updates
+4. Configure payment methods
+
+### Payment Gateway Setup
+1. **Razorpay**: Create account and get API keys
+2. **PayU**: Set up merchant account
+3. Configure webhook endpoints
+4. Test with sandbox credentials
+
+## 📊 Current Status
+
+### ✅ Completed Features
+- [x] Product catalog and search
+- [x] Shopping cart functionality
+- [x] Payment integration (Razorpay & PayU)
+- [x] Category navigation
+- [x] Product variants and pricing
+- [x] Responsive design
+- [x] SEO optimization
+- [x] Error handling
+
+### 🚧 In Progress
+- [ ] User authentication
+- [ ] Checkout flow completion
+- [ ] Order management
+- [ ] Email notifications
+
+### 📋 Planned Features
+- [ ] Admin dashboard
+- [ ] Inventory management
+- [ ] Advanced analytics
+- [ ] Multi-language support
+- [ ] Mobile app
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+## 📄 License
+
+This project is proprietary software developed for Bahola Labs. All rights reserved.
+
+## 🆘 Support
+
+For support and questions:
+- **Email**: support@baholalabs.com
+- **Documentation**: [PAYMENT_INTEGRATION.md](./PAYMENT_INTEGRATION.md)
+- **Issues**: [GitHub Issues](https://github.com/skandatechco/bahola-commerce/issues)
+
+## 🙏 Acknowledgments
+
+- Built with [Next.js](https://nextjs.org/)
+- E-commerce powered by [Swell](https://swell.is/)
+- Payment processing by [Razorpay](https://razorpay.com/) and [PayU](https://payu.in/)
+- UI components by [Headless UI](https://headlessui.com/)
+- Styling with [Tailwind CSS](https://tailwindcss.com/)
+
+---
+
+**Built with ❤️ for Bahola Labs - Trusted homeopathy since 1939**
