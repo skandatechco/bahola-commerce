@@ -1,44 +1,38 @@
-import Navbar from 'components/layout/navbar';
-import { GeistSans } from 'geist/font';
-import { ensureStartsWith } from 'lib/utils';
-import { ReactNode, Suspense } from 'react';
+import type { Metadata } from 'next';
+import { Inter } from 'next/font/google';
+import { Suspense } from 'react';
+import Footer from '../components/footer/Footer';
+import { SiteHeader } from '../components/header/SiteHeader';
 import './globals.css';
 
-const { TWITTER_CREATOR, TWITTER_SITE, SITE_NAME } = process.env;
-const baseUrl = process.env.NEXT_PUBLIC_VERCEL_URL
-  ? `https://${process.env.NEXT_PUBLIC_VERCEL_URL}`
-  : 'http://localhost:3000';
-const twitterCreator = TWITTER_CREATOR ? ensureStartsWith(TWITTER_CREATOR, '@') : undefined;
-const twitterSite = TWITTER_SITE ? ensureStartsWith(TWITTER_SITE, 'https://') : undefined;
+// Load Inter from Google Fonts (works even if the user doesn't have it installed)
+const inter = Inter({
+  subsets: ['latin'],
+  display: 'swap',            // shows system font first, swaps to Inter when ready
+});
 
-export const metadata = {
-  metadataBase: new URL(baseUrl),
-  title: {
-    default: SITE_NAME!,
-    template: `%s | ${SITE_NAME}`
-  },
-  robots: {
-    follow: true,
-    index: true
-  },
-  ...(twitterCreator &&
-    twitterSite && {
-      twitter: {
-        card: 'summary_large_image',
-        creator: twitterCreator,
-        site: twitterSite
-      }
-    })
+export const metadata: Metadata = {
+  title: 'Bahola',
+  description: 'Trusted homeopathy since 1939',
 };
 
-export default async function RootLayout({ children }: { children: ReactNode }) {
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
-    <html lang="en" className={GeistSans.variable}>
-      <body className="bg-neutral-50 text-black selection:bg-teal-300 dark:bg-neutral-900 dark:text-white dark:selection:bg-pink-500 dark:selection:text-white">
-        <Navbar />
-        <Suspense>
-          <main>{children}</main>
+    <html lang="en">
+      {/* 
+        inter.className applies Inter globally.
+        Next/Inter already includes sensible fallbacks (Helvetica/Arial/system).
+      */}
+      <body className={inter.className}>
+        <Suspense fallback={<div className="h-16 animate-pulse bg-gray-200" />}>
+          <SiteHeader />
         </Suspense>
+        {children}
+        <Footer />
       </body>
     </html>
   );

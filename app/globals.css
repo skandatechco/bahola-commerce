@@ -2,6 +2,127 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --color-primary: 210 100% 20%;
+  --color-primary-light: 193 38% 47%;
+  --color-primary-dark: 209 25% 10%;
+  --color-accent-gold: 31 53% 64%;
+  --color-accent-green: 102 31% 55%;
+  --color-accent-gold-light: 33 60% 75%;
+  --color-accent-green-light: 102 30% 70%;
+  --color-white: 0 0% 100%;
+  --color-soft-white: 214 15% 98%;
+  --color-light-grey: 210 16% 93%;
+  --color-medium-grey: 208 9% 45%;
+  --color-dark-grey: 210 29% 24%;
+  --color-charcoal: 210 10% 14%;
+  --color-success: 134 61% 41%;
+  --color-warning: 45 100% 51%;
+  --color-danger: 354 70% 53%;
+  --color-info: 188 78% 41%;
+  --focus: 30 35% 64%;
+
+  --font-primary: Inter, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  --font-secondary: Inter, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  --font-mono: 'Menlo', 'Monaco', 'Courier New', monospace;
+
+  --background: var(--color-soft-white);
+  --foreground: var(--color-charcoal);
+
+  --card: var(--color-white);
+  --card-foreground: var(--color-charcoal);
+
+  --popover: var(--color-white);
+  --popover-foreground: var(--color-charcoal);
+
+  --primary: var(--color-primary);
+  --primary-foreground: var(--color-white);
+
+  --secondary: var(--color-accent-green);
+  --secondary-foreground: var(--color-white);
+
+  --muted: var(--color-light-grey);
+  --muted-foreground: var(--color-medium-grey);
+
+  --accent: var(--color-accent-gold);
+  --accent-foreground: var(--color-charcoal);
+
+  --destructive: var(--color-danger);
+  --destructive-foreground: var(--color-white);
+
+  --border: var(--color-light-grey);
+  --input: var(--color-light-grey);
+  --ring: var(--focus);
+
+  --radius: 0.75rem;
+
+  --brand-400: var(--color-accent-gold-light);
+  --brand-500: var(--color-primary);
+  --brand-600: var(--color-accent-green);
+}
+
+.dark {
+  --background: var(--color-charcoal);
+  --foreground: var(--color-soft-white);
+
+  --card: var(--color-dark-grey);
+  --card-foreground: var(--color-soft-white);
+
+  --popover: var(--color-dark-grey);
+  --popover-foreground: var(--color-soft-white);
+
+  --primary: var(--color-primary-light);
+  --primary-foreground: var(--color-charcoal);
+
+  --secondary: var(--color-accent-green-light);
+  --secondary-foreground: var(--color-charcoal);
+
+  --muted: var(--color-dark-grey);
+  --muted-foreground: var(--color-light-grey);
+
+  --accent: var(--color-accent-gold-light);
+  --accent-foreground: var(--color-charcoal);
+
+  --destructive: var(--color-danger);
+  --destructive-foreground: var(--color-white);
+
+  --border: var(--color-dark-grey);
+  --input: var(--color-dark-grey);
+  --ring: var(--focus);
+
+  --brand-400: var(--color-accent-gold-light);
+  --brand-500: var(--color-primary-light);
+  --brand-600: var(--color-accent-green-light);
+}
+
+/* Custom button styles */
+.btn {
+  @apply inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none;
+}
+
+/* Top menu item styles */
+.top-menu-item {
+  @apply text-foreground/70 hover:text-foreground transition-colors;
+}
+
+.btn-primary {
+  @apply bg-primary text-primary-foreground hover:bg-primary/90 h-10 py-2 px-4;
+}
+
+.btn-ghost {
+  @apply hover:bg-accent hover:text-accent-foreground h-10 py-2 px-4;
+}
+
+/* Container gutter utility */
+.container-gutter {
+  @apply px-4 sm:px-6 lg:px-8;
+}
+
+/* Ensure featured products don't overlap with hero */
+.featured-products-section {
+  @apply relative z-10;
+}
+
 @media (prefers-color-scheme: dark) {
   html {
     color-scheme: dark;

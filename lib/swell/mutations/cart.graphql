@@ -3,6 +3,7 @@ mutation addToCart($productId: ID!, $quantity: Int!, $options: [SwellCartItemOpt
     ...Cart
   }
 }
+
 mutation editCartItem($itemId: String!, $quantity: Int!) {
   updateCartItem(itemId: $itemId, input: { quantity: $quantity }) {
     ...Cart
@@ -11,6 +12,30 @@ mutation editCartItem($itemId: String!, $quantity: Int!) {
 
 mutation removeFromCart($itemId: String!) {
   deleteCartItem(itemId: $itemId) {
+    ...Cart
+  }
+}
+
+mutation applyCoupon($couponCode: String!) {
+  applyCoupon(code: $couponCode) {
+    ...Cart
+  }
+}
+
+mutation removeCoupon {
+  removeCoupon {
+    ...Cart
+  }
+}
+
+mutation applyGiftCard($giftCardCode: String!) {
+  applyGiftcard(code: $giftCardCode) {
+    ...Cart
+  }
+}
+
+mutation removeGiftCard($giftCardId: String!) {
+  removeGiftcard(giftcardId: $giftCardId) {
     ...Cart
   }
 }

@@ -1,12 +1,39 @@
-import { getProductsByCategory } from 'lib/swell';
+import { getProducts } from 'lib/swell';
 import Link from 'next/link';
 import { GridTileImage } from './grid/tile';
 
 export async function Carousel() {
-  // Collections that start with `hidden-*` are hidden from the search page.
-  const products = await getProductsByCategory('coffee');
+  // Get all products instead of filtering by category
+  let products;
+  try {
+    products = await getProducts({});
+  } catch (error) {
+    console.error('Error fetching products for carousel:', error);
+    // Return a fallback message instead of null
+    return (
+      <div className="w-full overflow-x-auto pb-6 pt-1">
+        <div className="flex items-center justify-center h-64 bg-gray-50 rounded-lg">
+          <div className="text-center">
+            <h3 className="text-lg font-semibold text-gray-900">Our Products</h3>
+            <p className="text-gray-600">Loading homeopathic remedies...</p>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
-  if (!products?.length) return null;
+  if (!products?.length) {
+    return (
+      <div className="w-full overflow-x-auto pb-6 pt-1">
+        <div className="flex items-center justify-center h-64 bg-gray-50 rounded-lg">
+          <div className="text-center">
+            <h3 className="text-lg font-semibold text-gray-900">Our Products</h3>
+            <p className="text-gray-600">No products available at the moment.</p>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   // Purposefully duplicating products to make the carousel loop and not run out of products on wide screens.
   const carouselProducts = [...products, ...products, ...products];

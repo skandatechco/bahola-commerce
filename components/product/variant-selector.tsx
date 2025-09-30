@@ -60,11 +60,30 @@ export function VariantSelector({
 
 
   const combinations: Combination[] = variants.map((variant) => {
+    // Variant stock logic: 
+    // - If stockPurchasable is null/undefined, assume available (no inventory management)
+    // - If stockPurchasable is true, check variant stock level
+    // - If stockPurchasable is false, not available
+    const variantAvailable = variant.stockLevel === null || variant.stockLevel > 0;
+    const isVariantAvailable = stockPurchasable === null ? true : 
+      (stockPurchasable === true ? variantAvailable : false);
+    
     const optimized: Combination = {
       id: variant.id,
-      availableForSale: stockPurchasable ? true : variant.stockLevel > 0,
+      availableForSale: isVariantAvailable,
       params: new URLSearchParams()
     };
+
+    // Debug logging for variant stock values
+    console.log('Variant Stock Debug:', {
+      variantId: variant.id,
+      variantName: variant.name,
+      stockLevel: variant.stockLevel,
+      variantAvailable,
+      stockPurchasable,
+      isVariantAvailable,
+      availableForSale: optimized.availableForSale
+    });
 
     variant.optionValueIds.forEach((selectedOptionValueID) => {
       const selectedOption = options.find((option) =>

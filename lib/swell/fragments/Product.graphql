@@ -19,6 +19,10 @@ fragment Product on SwellProduct {
     }
   }
   price
+  prices {
+    price
+    discountPercent
+  }
   variants {
     results {
       ...ProductVariant
@@ -41,6 +45,7 @@ fragment ProductVariant on SwellProductVariant {
   id
   name
   sku
+  price
   prices {
     price
     discountPercent

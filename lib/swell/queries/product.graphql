@@ -4,8 +4,34 @@ query getProduct($slug: String!) {
   }
 }
 
-query getProducts($sort: String, $query: String) {
-  products(sort: $sort, search: $query) {
+query getProductWithPrices($slug: String!) {
+  productBySlug(slug: $slug) {
+    ...Product
+  }
+}
+
+query getProductVariants($slug: String!) {
+  productBySlug(slug: $slug) {
+    id
+    name
+    variants {
+      results {
+        id
+        name
+        price
+        prices {
+          price
+          discountPercent
+        }
+        currency
+        optionValueIds
+      }
+    }
+  }
+}
+
+query getProducts($sort: String, $search: String) {
+  products(sort: $sort, search: $search) {
     results {
       ...Product
     }

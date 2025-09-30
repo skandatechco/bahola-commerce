@@ -1,0 +1,27 @@
+{
+  "framework": "nextjs",
+  "buildCommand": "npm run build",
+  "devCommand": "npm run dev",
+  "installCommand": "npm install",
+  "functions": {
+    "app/api/**/*.ts": {
+      "maxDuration": 30
+    }
+  },
+  "env": {
+    "SWELL_STORE_ID": "@swell_store_id",
+    "SWELL_PUBLIC_KEY": "@swell_public_key",
+    "SWELL_REVALIDATION_SECRET": "@swell_revalidation_secret",
+    "RAZORPAY_KEY_ID": "@razorpay_key_id",
+    "RAZORPAY_KEY_SECRET": "@razorpay_key_secret",
+    "RAZORPAY_WEBHOOK_SECRET": "@razorpay_webhook_secret",
+    "PAYU_MERCHANT_ID": "@payu_merchant_id",
+    "PAYU_MERCHANT_KEY": "@payu_merchant_key",
+    "PAYU_MERCHANT_SALT": "@payu_merchant_salt",
+    "PAYU_AUTH_HEADER": "@payu_auth_header",
+    "PAYU_BASE_URL": "@payu_base_url",
+    "NEXT_PUBLIC_BASE_URL": "@next_public_base_url"
+  }
+}
+
+

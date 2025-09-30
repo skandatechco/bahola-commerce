@@ -1,6 +1,6 @@
 'use server';
 
-import { addToCart, removeFromCart, updateCart } from 'lib/swell';
+import { addToCart, applyCoupon, applyGiftCard, removeCoupon, removeFromCart, removeGiftCard, updateCart } from 'lib/swell';
 import { SwellCartItemOptionInput } from 'lib/swell/__generated__/graphql';
 import { cookies } from 'next/headers';
 
@@ -56,5 +56,73 @@ export const updateItemQuantity = async ({
     });
   } catch (e) {
     return new Error('Error updating item quantity', { cause: e });
+  }
+};
+
+export const applyCouponCode = async (couponCode: string): Promise<Error | undefined> => {
+  const cartId = cookies().get('sessionToken')?.value;
+
+  if (!cartId) {
+    return new Error('Missing cartId');
+  }
+
+  if (!couponCode) {
+    return new Error('Coupon code is required');
+  }
+
+  try {
+    await applyCoupon(cartId, couponCode);
+  } catch (e) {
+    return new Error('Error applying coupon code', { cause: e });
+  }
+};
+
+export const removeCouponCode = async (): Promise<Error | undefined> => {
+  const cartId = cookies().get('sessionToken')?.value;
+
+  if (!cartId) {
+    return new Error('Missing cartId');
+  }
+
+  try {
+    await removeCoupon(cartId);
+  } catch (e) {
+    return new Error('Error removing coupon code', { cause: e });
+  }
+};
+
+export const applyGiftCardCode = async (giftCardCode: string): Promise<Error | undefined> => {
+  const cartId = cookies().get('sessionToken')?.value;
+
+  if (!cartId) {
+    return new Error('Missing cartId');
+  }
+
+  if (!giftCardCode) {
+    return new Error('Gift card code is required');
+  }
+
+  try {
+    await applyGiftCard(cartId, giftCardCode);
+  } catch (e) {
+    return new Error('Error applying gift card code', { cause: e });
+  }
+};
+
+export const removeGiftCardCode = async (giftCardId: string): Promise<Error | undefined> => {
+  const cartId = cookies().get('sessionToken')?.value;
+
+  if (!cartId) {
+    return new Error('Missing cartId');
+  }
+
+  if (!giftCardId) {
+    return new Error('Gift card ID is required');
+  }
+
+  try {
+    await removeGiftCard(cartId, giftCardId);
+  } catch (e) {
+    return new Error('Error removing gift card', { cause: e });
   }
 };

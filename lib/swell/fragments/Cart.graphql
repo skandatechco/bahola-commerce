@@ -6,6 +6,22 @@ fragment Cart on SwellCart {
   taxes {
     amount
   }
+  discountTotal
+  discounts {
+    id
+    amount
+    type
+  }
+  coupon {
+    id
+  }
+  couponCode
+  giftcards {
+    id
+    code
+    amount
+  }
+  giftcardTotal
   items {
     ...CartItem
   }
